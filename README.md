@@ -23,3 +23,5 @@ Edit the `hosts` file, enter the server ip/name on which you want to deploy the 
 ```
 ansible-playbook -i hosts site.yml
 ```
+http://192.168.0.109/
+![ScreenShot](https://github.com/ratulbasak/lemp_stack-using-ansible/blob/master/lemp.png)
