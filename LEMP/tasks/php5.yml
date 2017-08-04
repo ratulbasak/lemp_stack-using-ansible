@@ -1,0 +1,25 @@
+---
+- name: Install the PHP5 Repository
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+    state: present
+    update_cache: yes
+
+- name: Install PHP5-FPM
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ ubuntu_php_pkgs }}"
+
+- name: Copy the templates to their respestive destination
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+  with_items:
+    - { src: 'www.conf.j2', dest: '/etc/php/7.1/fpm/pool.d/www.conf' }
+    - { src: 'php.ini.j2', dest: '/etc/php/7.1/fpm/php.ini' }
+  notify:
+    - Restart PHP5-FPM
